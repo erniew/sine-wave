@@ -1,0 +1,69 @@
+<!-- web client for a simple server-side application to demonstrate running a node API Appserver on a Raspberry Pi to display I/O values in a web browser -->
+ <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Sinewave Simulator</title>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="myclient.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <style type = "text/css">
+            h1 {font-family: arial; color: red}
+            h3, h4 {font-family: arial; color: red}
+            #input {font-size:10pt}
+            #status {font-family: arial; color: red}
+            #status, p{font-size:10pt}
+            .data{background-color: cyan}
+            .red-led{background-color: red}
+            .blue-led{background-color: blue}
+            .yellow-led{background-color: yellow}
+            .led-on {background-color: green}
+        </style>
+    </head>
+    <body>
+        <H1>Sinewave Simulator</H1>
+        <div id="input">
+            <p>
+                &nbsp;<button class="data">Data Button </button>
+                &nbsp;<button class="red-led">Red LED Button </button>
+                &nbsp;<button class="blue-led">Blue LED Button </button>
+                &nbsp;<button class="yellow-led">Yellow LED Button </button>
+                <hr/>  
+                <form class = "form1" method = "get" action = "/sinewave/">
+					Sinewave Settings<br>
+					Amplitude:-<input type = "range" name = "amplitude" min = "0" max = "10" value = "5" onchange = "document.getElementById('amplitudedisplay').innerHTML = this.value">
+					<span id = "amplitudedisplay"> 5</span><br>
+					Duration:-     <input type = "range" name = "duration" min = "0" max = "30" value = "5" onchange = "document.getElementById('durationdisplay').innerHTML = this.value">
+					<span id = "durationdisplay"> 5</span><br>
+					<input type ="submit" value = "Send">
+                </form>  
+                <hr/>            
+                <form class = "form2" method = "get" action = "/config/">
+					Your name:
+					<input type = "text" name = "customername" size = "40" placeholder = "Enter first and Last name">
+					<input type ="radio" name = "onoff" value = "yes" checked>ON
+					<input type ="radio" name = "onoff" value = "no">OFF<br>
+					No of Phases:-<br>
+					<input type = "checkbox" name = "single" value = "yes">Single Phase<br>
+					<input type = "checkbox" name = "double" value = "yes">Double Phase<br>
+					<input type = "checkbox" name = "triple" value = "yes">Three Phase<br>
+					ALARMS:-
+					<select name = "alarm" size = "1">
+					<option value = "fpi">FPI</option>
+					<option value = "efi">EFI</option>
+					<option value = "sf6">SF6</option>
+					</select><br>
+					<input type ="submit" value = "Send">
+					<input type ="reset" value = "Reset">
+					<hr/>
+				</form>
+            </p>
+        </div>
+        <h4 id="responses"></h4>
+        <hr/>
+        <div id="status">
+            <p>
+			</p>
+		</div>
+    </body>
+</html>
